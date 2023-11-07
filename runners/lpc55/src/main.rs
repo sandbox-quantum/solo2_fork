@@ -12,6 +12,8 @@ use hal::traits::wg::timer::CountDown;
 use hal::drivers::timer::Elapsed;
 use hal::time::{DurationExtensions, Microseconds};
 
+// use pqclean::{sb_pqclean_dilithium3_clean_crypto_sign_keypair,sb_pqclean_dilithium3_clean_crypto_sign_signature, sb_pqclean_dilithium3_clean_crypto_sign_verify};
+
 const REFRESH_MILLISECS: i32 = 50;
 
 const USB_INTERRUPT: board::hal::raw::Interrupt = board::hal::raw::Interrupt::USB1;
@@ -137,6 +139,20 @@ const APP: () = {
         let schedule = c.schedule;
 
         info_now!("inside IDLE, initial SP = {:08X}", msp());
+
+        // let (pk, mut sk) = sb_pqclean_dilithium3_clean_crypto_sign_keypair();
+        // info_now!("Generated keys");
+
+        // let sig = sb_pqclean_dilithium3_clean_crypto_sign_signature(b"Hello, World!", &mut sk);
+        //  info_now!("Finished signing");
+
+        // let res = sb_pqclean_dilithium3_clean_crypto_sign_verify(&sig, b"Hello, World!", &pk);
+        // if res {
+        //     info_now!("Verification succesful");
+        // } else {
+        //     info_now!("Verification failed");
+        // }
+
         loop {
 
             let mut time = 0;
@@ -207,18 +223,18 @@ const APP: () = {
     /// Manages all traffic on the USB bus.
     #[task(binds = USB1, resources = [usb_classes], schedule = [ccid_wait_extension, ctaphid_keepalive], priority=6)]
     fn usb(c: usb::Context) {
-        // let remaining = msp() - 0x2000_0000;
-        // if remaining < 100_000 {
-        //     debug_now!("USB interrupt: remaining stack size: {} bytes", remaining);
-        // }
+        let remaining = msp() - 0x2000_0000;
+        if remaining < 100_000 {
+            debug_now!("USB interrupt: remaining stack size: {} bytes", remaining);
+        }
         let usb = unsafe { hal::raw::Peripherals::steal().USB1 } ;
         // let before = Instant::now();
         let usb_classes = c.resources.usb_classes.as_mut().unwrap();
 
         //////////////
-        // if remaining < 60_000 {
-        //     debug_now!("polling usb classes");
-        // }
+        if remaining < 60_000 {
+            debug_now!("polling usb classes");
+        }
         usb_classes.poll();
 
         match usb_classes.ccid.did_start_processing() {

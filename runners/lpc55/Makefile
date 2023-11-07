@@ -1,5 +1,5 @@
 BOARD := lpcxpresso55
-DEVELOP := --features board-$(BOARD),develop
+DEVELOP := --features board-$(BOARD),develop,log-all,fido-authenticator/log-all,trussed/log-all,ctaphid-dispatch/log-info,ctap-types/log-all,log-semihosting
 PROVISIONER := --features board-$(BOARD),develop-provisioner
 
 # builds firmware bundle with development features,
