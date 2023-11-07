@@ -680,7 +680,7 @@ dependencies = [
 [[package]]
 name = "fido-authenticator"
 version = "0.1.1"
-source = "git+https://github.com/sandbox-quantum/fido-authenticator_fork?branch=pqc_kyber768_dilithium3#11e8d70a5af3ae45e0995cc68fd4a7ae8e819dda"
+source = "git+https://github.com/sandbox-quantum/fido-authenticator_fork?branch=pqc_kyber768_dilithium3#5c6fc3850eb3455c248bd66453e06e92b65b2bcc"
 dependencies = [
  "apdu-dispatch",
  "cbor-smol",
@@ -1428,7 +1428,7 @@ checksum = "5b40af805b3121feab8a3c29f04d8ad262fa8e0561883e7653e024ae4479e6de"
 [[package]]
 name = "pqclean"
 version = "0.1.0"
-source = "git+https://github.com/sandbox-quantum/fido-authenticator_fork?branch=pqc_kyber768_dilithium3#11e8d70a5af3ae45e0995cc68fd4a7ae8e819dda"
+source = "git+https://github.com/sandbox-quantum/fido-authenticator_fork?branch=pqc_kyber768_dilithium3#5c6fc3850eb3455c248bd66453e06e92b65b2bcc"
 dependencies = [
  "cty",
  "libc",
